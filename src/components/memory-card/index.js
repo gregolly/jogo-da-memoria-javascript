@@ -94,29 +94,39 @@ const memoryCard = () => {
 
 //onClick="handleClick()"
 //função que captura o click de varios itens
+let qtdActiveMemoryCard = 0;
 function clicarCard(){
-
   const cards = document.querySelectorAll('.memory-card');
 
-  let flipCards = document.querySelectorAll('.memory-card.-active');
-
   function handleCard(event){
+
     const target = event.currentTarget;
+    
+    if(qtdActiveMemoryCard < 2){
+      target.classList.toggle('-active');
 
-    target.classList.toggle('-active');
 
-    if(flipCards.lenght === 2){
-      flipCards.removeEventListener('click', handleCard);
+      const $memoryCards = document.querySelectorAll('.memory-card.-active');
+
+      // if($memoryCards[0].querySelector('.-front .icon').getAttribute('src') === $memoryCards[1].querySelector('.-front .icon').getAttribute('src')){
+      //   console.log('são iguais')
+      // }
     }
 
-    setTimeout(function(){
+    setTimeout(() =>{
       target.classList.remove('-active');
     }, 3000);
+    
   }
 
   cards.forEach((card) =>{
     card.addEventListener('click', handleCard);
   }); 
 
+  $cardsWrapper.addEventListener('click', () =>{
+    if(!$cardsWrapper.classList.contains('.-active')){
+      qtdActiveMemoryCard = $cardsWrapper.querySelectorAll('.memory-card.-active').length;
+    }
+  });
 }
 
